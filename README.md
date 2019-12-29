@@ -8,6 +8,7 @@ Learn how to build a simple RESTful API by Go
 ## Install
 ```
 go get -u github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin
+go get -u github.com/stretchr/testify/assert
 go get -u github.com/gin-gonic/gin
 ```
 
