@@ -17,6 +17,8 @@ func TestPow(t *testing.T) {
 
 	assert.Equal(t, 8, c.Pow(2, 3))
 	assert.Equal(t, 0, c.Pow(0, 5))
+	assert.Equal(t, 1, c.Pow(3, 0))
+	assert.Equal(t, 3, c.Pow(3, 1))
 	assert.Equal(t, 1, c.Pow(1, 1000))
 }
 
