@@ -5,5 +5,6 @@ import (
 )
 
 func main() {
+	handle.Init()
 	handle.Setup().Run() // listen and serve on 0.0.0.0:8080
 }

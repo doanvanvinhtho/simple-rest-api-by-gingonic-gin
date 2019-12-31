@@ -16,15 +16,16 @@ type testcase struct {
 }
 
 func TestGetOneEvent(t *testing.T) {
+	Init()
 	router := Setup()
 
 	cases := []testcase{
 		{
-			inID:     "6yh4tgrt4y58jdfuer",
+			inID:     "id_go",
 			wantCode: 200,
 		},
 		{
-			inID:     "1234554321",
+			inID:     "12345_54321",
 			wantCode: 404,
 		},
 	}
@@ -34,7 +35,7 @@ func TestGetOneEvent(t *testing.T) {
 		req, _ := http.NewRequest("GET", "/events/"+c.inID, nil)
 		router.ServeHTTP(w, req)
 
-		// Check HTTP response code
+		// The http response code always 200
 		assert.Equal(t, 200, w.Code)
 
 		// Convert the JSON response to object
