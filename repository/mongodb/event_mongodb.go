@@ -17,6 +17,6 @@ type eventMongoDB struct {
 }
 
 // GetOneEvent helps to get a event from MongoDB repository
-func (e *eventMongoDB) GetOneEvent(id string) (*model.Event, error) {
+func (e eventMongoDB) GetOneEvent(id string) (*model.Event, error) {
 	return nil, errors.New("Event " + id + " not found")
 }

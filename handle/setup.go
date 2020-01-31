@@ -7,21 +7,55 @@ import (
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/redis"
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/service"
 	"github.com/gin-gonic/gin"
+	redisDriver "github.com/gomodule/redigo/redis"
 )
 
 var serviceEvent service.Event
+
+func initInMemoryRepo() {
+	serviceEvent = service.New(inmemory.New())
+}
+
+func initMongoDBRepo() {
+	serviceEvent = service.New(mongodb.New())
+}
+
+func initMySQLRepo() {
+	serviceEvent = service.New(mysql.New())
+}
+
+func initRedisRepo() {
+	redisPool := &redisDriver.Pool{
+		// Maximum number of connections allocated by the pool at a given time.
+		// When zero, there is no limit on the number of connections in the pool.
+		MaxActive: 20,
+		// Maximum number of idle connections in the pool.
+		MaxIdle: 10,
+		// Close connections after remaining idle for this duration. If the value
+		// is zero, then idle connections are not closed. Applications should set
+		// the timeout to a value less than the server's timeout.
+		IdleTimeout: 0,
+		// If Wait is true and the pool is at the MaxActive limit, then Get() waits
+		// for a connection to be returned to the pool before returning.
+		Wait: true,
+		Dial: func() (redisDriver.Conn, error) {
+			return redisDriver.Dial("tcp", "localhost:6379")
+		},
+	}
+	serviceEvent = service.New(redis.New(redisPool))
+}
 
 // Init services
 func Init(repo string) {
 	switch repo {
 	case "inmemory":
-		serviceEvent = service.New(inmemory.New())
+		initInMemoryRepo()
 	case "mongodb":
-		serviceEvent = service.New(mongodb.New())
+		initMongoDBRepo()
 	case "mysql":
-		serviceEvent = service.New(mysql.New())
+		initMySQLRepo()
 	case "redis":
-		serviceEvent = service.New(redis.New())
+		initRedisRepo()
 	}
 }
 
