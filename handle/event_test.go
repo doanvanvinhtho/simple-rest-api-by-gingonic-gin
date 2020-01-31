@@ -16,7 +16,7 @@ type testcase struct {
 }
 
 func TestGetOneEvent(t *testing.T) {
-	Init()
+	Init("inmemory")
 	router := Setup()
 
 	cases := []testcase{

@@ -7,20 +7,20 @@ import (
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository"
 )
 
-// New an event in-memory service
-func New(r *repository.EventInMemory) *EventInmemory {
-	return &EventInmemory{
+// New an event service
+func New(r repository.Event) Event {
+	return eventImpl{
 		repo: r,
 	}
 }
 
-// EventInmemory is instance of event service
-type EventInmemory struct {
-	repo *repository.EventInMemory
+// EventImpl is instance of event service
+type eventImpl struct {
+	repo repository.Event
 }
 
 // GetOneEvent helps to get an event
-func (s *EventInmemory) GetOneEvent(id string) model.Response {
+func (s eventImpl) GetOneEvent(id string) model.Response {
 	var response model.Response
 
 	if event, err := s.repo.GetOneEvent(id); err != nil {
@@ -41,6 +41,6 @@ func (s *EventInmemory) GetOneEvent(id string) model.Response {
 }
 
 // GetAllEvent helps to get all events
-func (s *EventInmemory) GetAllEvent() []model.Response {
+func (s eventImpl) GetAllEvent() []model.Response {
 	return nil
 }

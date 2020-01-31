@@ -1,14 +1,15 @@
-package repository
+package inmemory
 
 import (
 	"errors"
 
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/model"
+	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository"
 )
 
 // New an event use in-memory
-func New() *EventInMemory {
-	return &EventInMemory{
+func New() repository.Event {
+	return eventInMemory{
 		events: []model.Event{
 			{
 				ID:          "id_go",
@@ -24,13 +25,13 @@ func New() *EventInMemory {
 	}
 }
 
-// EventInMemory is instance of event repository
-type EventInMemory struct {
+// eventInMemory is instance of event repository
+type eventInMemory struct {
 	events []model.Event
 }
 
-// GetOneEvent helps to get a event from in-memory repository
-func (e *EventInMemory) GetOneEvent(id string) (*model.Event, error) {
+// GetOneEvent helps to get an event from in-memory repository
+func (e eventInMemory) GetOneEvent(id string) (*model.Event, error) {
 	for _, singleEvent := range e.events {
 		if singleEvent.ID == id {
 			return &singleEvent, nil

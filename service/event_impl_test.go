@@ -4,12 +4,12 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository"
+	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/inmemory"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestGetOneEvent(t *testing.T) {
-	serviceEvent := New(repository.New())
+	serviceEvent := New(inmemory.New())
 
 	response := serviceEvent.GetOneEvent("id_gin")
 	assert.NotNil(t, response)

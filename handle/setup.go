@@ -1,7 +1,10 @@
 package handle
 
 import (
-	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository"
+	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/inmemory"
+	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/mongodb"
+	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/mysql"
+	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/redis"
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/service"
 	"github.com/gin-gonic/gin"
 )
@@ -9,8 +12,17 @@ import (
 var serviceEvent service.Event
 
 // Init services
-func Init() {
-	serviceEvent = service.New(repository.New())
+func Init(repo string) {
+	switch repo {
+	case "inmemory":
+		serviceEvent = service.New(inmemory.New())
+	case "mongodb":
+		serviceEvent = service.New(mongodb.New())
+	case "mysql":
+		serviceEvent = service.New(mysql.New())
+	case "redis":
+		serviceEvent = service.New(redis.New())
+	}
 }
 
 // Setup handlers

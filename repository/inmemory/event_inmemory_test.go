@@ -1,4 +1,4 @@
-package repository
+package inmemory
 
 import (
 	"testing"
@@ -11,7 +11,7 @@ type testcase struct {
 	wantTitle string
 }
 
-func TestGetOneEvent(t *testing.T) {
+func TestGetOneEventInMemory(t *testing.T) {
 	e := New()
 
 	happyCases := []testcase{
