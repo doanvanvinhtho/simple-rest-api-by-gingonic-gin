@@ -35,3 +35,9 @@ curl http://localhost:8080/events/id_gin
 curl http://localhost:8080/events/12345_54321
 {"code":404,"message":"Event 12345_54321 not found"}
 ```
+
+## Docker
+```
+docker build -t doanvanvinhtho/simple-rest-api-by-gingonic-gin:latest .
+docker container run --detach --publish 8080:8080 doanvanvinhtho/simple-rest-api-by-gingonic-gin
+```
