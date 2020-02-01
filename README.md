@@ -2,17 +2,7 @@
 Learn how to build a simple RESTful API by Go
 
 ## Prerequisites
-* Have Go installed. If not, check it out [here](https://golang.org/doc/install)
-* Also after installing, make sure you are working inside your GOPATH
-
-## Install
-```
-go get -u github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin
-go get -u github.com/stretchr/testify/assert
-go get -u github.com/gin-gonic/gin
-go get -u github.com/gomodule/redigo/redis
-go get -u go.mongodb.org/mongo-driver
-```
+* Have Go installed
 
 ## Test
 ```
