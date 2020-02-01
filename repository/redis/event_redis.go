@@ -33,7 +33,7 @@ func (e eventRedis) GetOneEvent(id string) (*model.Event, error) {
 	if err != nil {
 		return nil, err
 	} else if len(values) <= 0 {
-		return nil, errors.New("Event " + id + " not found")
+		return nil, errors.New("[Redis] Event " + id + " not found")
 	}
 
 	var resultEvent model.Event

@@ -18,5 +18,5 @@ type eventMySQL struct {
 
 // GetOneEvent helps to get a event from MySQL repository
 func (e eventMySQL) GetOneEvent(id string) (*model.Event, error) {
-	return nil, errors.New("Event " + id + " not found")
+	return nil, errors.New("[MySQL] Event " + id + " not found")
 }

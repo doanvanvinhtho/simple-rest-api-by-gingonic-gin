@@ -28,6 +28,5 @@ curl http://localhost:8080/events/12345_54321
 
 ## Docker
 ```
-docker build -t doanvanvinhtho/simple-rest-api-by-gingonic-gin:latest .
-docker container run --detach --publish 8080:8080 doanvanvinhtho/simple-rest-api-by-gingonic-gin
+docker-compose up
 ```

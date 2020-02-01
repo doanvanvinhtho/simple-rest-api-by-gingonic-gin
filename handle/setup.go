@@ -23,7 +23,7 @@ func initInMemoryRepo() {
 
 func initMongoDBRepo() {
 	// Set client options
-	clientOptions := mongoOptions.Client().ApplyURI("mongodb://localhost:27017/demo")
+	clientOptions := mongoOptions.Client().ApplyURI("mongodb://mongodb:27017/demo")
 	clientOptions.SetMaxPoolSize(50)
 
 	// Connect to MongoDB
@@ -54,7 +54,7 @@ func initRedisRepo() {
 		// for a connection to be returned to the pool before returning.
 		Wait: true,
 		Dial: func() (redisDriver.Conn, error) {
-			return redisDriver.Dial("tcp", "localhost:6379")
+			return redisDriver.Dial("tcp", "redis:6379")
 		},
 	}
 	serviceEvent = service.New(redis.New(redisPool))
