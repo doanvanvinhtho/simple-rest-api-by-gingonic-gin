@@ -1,6 +1,9 @@
 package handle
 
 import (
+	"context"
+	"log"
+
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/inmemory"
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/mongodb"
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/mysql"
@@ -8,6 +11,8 @@ import (
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/service"
 	"github.com/gin-gonic/gin"
 	redisDriver "github.com/gomodule/redigo/redis"
+	mongoDriver "go.mongodb.org/mongo-driver/mongo"
+	mongoOptions "go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var serviceEvent service.Event
@@ -17,7 +22,17 @@ func initInMemoryRepo() {
 }
 
 func initMongoDBRepo() {
-	serviceEvent = service.New(mongodb.New())
+	// Set client options
+	clientOptions := mongoOptions.Client().ApplyURI("mongodb://localhost:27017/demo")
+	clientOptions.SetMaxPoolSize(50)
+
+	// Connect to MongoDB
+	client, err := mongoDriver.Connect(context.TODO(), clientOptions)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	serviceEvent = service.New(mongodb.New(client))
 }
 
 func initMySQLRepo() {
