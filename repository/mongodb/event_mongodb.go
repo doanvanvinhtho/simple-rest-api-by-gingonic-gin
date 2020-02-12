@@ -3,15 +3,16 @@ package mongodb
 import (
 	"context"
 
-	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/model"
-	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+
+	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/model"
+	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository"
 )
 
 // New an event use MongoDB
 func New(mc *mongo.Client) repository.Event {
-	return eventMongoDB{
+	return &eventMongoDB{
 		mongoClient: mc,
 	}
 }
@@ -22,7 +23,7 @@ type eventMongoDB struct {
 }
 
 // GetOneEvent helps to get a event from MongoDB repository
-func (e eventMongoDB) GetOneEvent(id string) (*model.Event, error) {
+func (e *eventMongoDB) GetOneEvent(id string) (*model.Event, error) {
 	var resultEvent model.Event
 
 	collection := e.mongoClient.Database("demo").Collection("event")

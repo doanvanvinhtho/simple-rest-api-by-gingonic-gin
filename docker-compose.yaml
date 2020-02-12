@@ -25,9 +25,14 @@ services:
   myapp:
     build:
       context: .
+    volumes:
+      - .:/app
     ports:
       - "8080:8080"
+    environment:
+      MYSQL_SQL_URI: mysql://user:password@tcp(mysql:3306)/demo?parseTime=true
     depends_on:
       - redis
       - mongodb
       - mysql
+    command: go run main.go run

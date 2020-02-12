@@ -6,8 +6,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/model"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/model"
 )
 
 type testcase struct {

@@ -4,15 +4,20 @@ import (
 	"context"
 	"log"
 
+	"github.com/gin-gonic/gin"
+
+	mysqlDriver "database/sql"
+
+	redisDriver "github.com/gomodule/redigo/redis"
+
+	mongoDriver "go.mongodb.org/mongo-driver/mongo"
+	mongoOptions "go.mongodb.org/mongo-driver/mongo/options"
+
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/inmemory"
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/mongodb"
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/mysql"
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/redis"
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/service"
-	"github.com/gin-gonic/gin"
-	redisDriver "github.com/gomodule/redigo/redis"
-	mongoDriver "go.mongodb.org/mongo-driver/mongo"
-	mongoOptions "go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var serviceEvent service.Event
@@ -36,7 +41,16 @@ func initMongoDBRepo() {
 }
 
 func initMySQLRepo() {
-	serviceEvent = service.New(mysql.New())
+	dbServer := "mysql"
+	dbDriver := "mysql"
+	dbUser := "user"
+	dbPass := "password"
+	dbName := "demo"
+	db, err := mysqlDriver.Open(dbDriver, dbUser+":"+dbPass+"@tcp("+dbServer+")/"+dbName)
+	if err != nil {
+		log.Fatal(err)
+	}
+	serviceEvent = service.New(mysql.New(db))
 }
 
 func initRedisRepo() {

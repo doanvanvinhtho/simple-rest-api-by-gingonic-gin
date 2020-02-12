@@ -9,7 +9,7 @@ import (
 
 // New an event use in-memory
 func New() repository.Event {
-	return eventInMemory{
+	return &eventInMemory{
 		events: []model.Event{
 			{
 				ID:          "id_go",
@@ -31,7 +31,7 @@ type eventInMemory struct {
 }
 
 // GetOneEvent helps to get an event from in-memory repository
-func (e eventInMemory) GetOneEvent(id string) (*model.Event, error) {
+func (e *eventInMemory) GetOneEvent(id string) (*model.Event, error) {
 	for _, singleEvent := range e.events {
 		if singleEvent.ID == id {
 			return &singleEvent, nil

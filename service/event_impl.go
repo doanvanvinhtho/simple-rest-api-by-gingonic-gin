@@ -9,7 +9,7 @@ import (
 
 // New an event service
 func New(r repository.Event) Event {
-	return eventImpl{
+	return &eventImpl{
 		repo: r,
 	}
 }
@@ -20,7 +20,7 @@ type eventImpl struct {
 }
 
 // GetOneEvent helps to get an event
-func (s eventImpl) GetOneEvent(id string) model.Response {
+func (s *eventImpl) GetOneEvent(id string) model.Response {
 	var response model.Response
 
 	if event, err := s.repo.GetOneEvent(id); err != nil {
@@ -41,6 +41,6 @@ func (s eventImpl) GetOneEvent(id string) model.Response {
 }
 
 // GetAllEvent helps to get all events
-func (s eventImpl) GetAllEvent() []model.Response {
+func (s *eventImpl) GetAllEvent() []model.Response {
 	return nil
 }

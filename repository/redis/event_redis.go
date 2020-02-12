@@ -3,14 +3,15 @@ package redis
 import (
 	"errors"
 
+	"github.com/gomodule/redigo/redis"
+
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/model"
 	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository"
-	"github.com/gomodule/redigo/redis"
 )
 
 // New an event use redis
 func New(rp *redis.Pool) repository.Event {
-	return eventRedis{
+	return &eventRedis{
 		pool: rp,
 	}
 }
@@ -21,7 +22,7 @@ type eventRedis struct {
 }
 
 // GetOneEvent helps to get a event from redis repository
-func (e eventRedis) GetOneEvent(id string) (*model.Event, error) {
+func (e *eventRedis) GetOneEvent(id string) (*model.Event, error) {
 	conn := e.pool.Get()
 	defer conn.Close()
 

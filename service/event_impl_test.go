@@ -4,8 +4,9 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/inmemory"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/doanvanvinhtho/simple-rest-api-by-gingonic-gin/repository/inmemory"
 )
 
 func TestGetOneEvent(t *testing.T) {
