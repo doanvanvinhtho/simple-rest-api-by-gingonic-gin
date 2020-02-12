@@ -1,21 +1,21 @@
 # simple-rest-api-by-gingonic-gin
-Learn how to build a simple RESTful API by Go
+Learn how to build a simple RESTful API by Go, Just for fun!
 
 ## Prerequisites
 * Have Go installed
 
 ## Test
-```
+``` bash
 go test ./...
 ```
 
 ## Run the HTTP server
-```
+``` bash
 go run main.go
 ```
 
 ## Test APIs
-```
+``` bash
 curl http://localhost:8080/events/id_go
 {"code":200,"data":{"id":"id_go","title":"Go","description":"https://golang.org/"}}
 
@@ -27,21 +27,6 @@ curl http://localhost:8080/events/12345_54321
 ```
 
 ## Docker
-```
+``` bash
 docker-compose up
-```
-
-### Insert sample data into Redis
-```
-docker container exec -it simple-rest-api-by-gingonic-gin_redis_1 redis-cli
-HMSET event:id_go ID id_go Title "Go" Description "https://golang.org/"
-HMSET event:id_gin ID id_gin Title "Gin" Description "https://github.com/gin-gonic/gin"
-```
-
-### Insert sample data into MongoDB
-```
-docker container exec -it simple-rest-api-by-gingonic-gin_mongodb_1 mongo
-use demo;
-db.event.insert({ID:"id_go", Title:"Go", Description:"https://golang.org/" });
-db.event.insert({ID:"id_gin", Title:"Gin", Description:"https://github.com/gin-gonic/gin" });
 ```

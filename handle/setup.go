@@ -3,6 +3,7 @@ package handle
 import (
 	"context"
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 
@@ -28,7 +29,7 @@ func initInMemoryRepo() {
 
 func initMongoDBRepo() {
 	// Set client options
-	clientOptions := mongoOptions.Client().ApplyURI("mongodb://mongodb:27017/demo")
+	clientOptions := mongoOptions.Client().ApplyURI(os.Getenv("MONGODB_URI"))
 	clientOptions.SetMaxPoolSize(50)
 
 	// Connect to MongoDB
@@ -41,12 +42,9 @@ func initMongoDBRepo() {
 }
 
 func initMySQLRepo() {
-	dbServer := "mysql"
+	dbConnectionString := os.Getenv("MYSQL_CONNECTION_STRING")
 	dbDriver := "mysql"
-	dbUser := "user"
-	dbPass := "password"
-	dbName := "demo"
-	db, err := mysqlDriver.Open(dbDriver, dbUser+":"+dbPass+"@tcp("+dbServer+")/"+dbName)
+	db, err := mysqlDriver.Open(dbDriver, dbConnectionString)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -68,7 +66,7 @@ func initRedisRepo() {
 		// for a connection to be returned to the pool before returning.
 		Wait: true,
 		Dial: func() (redisDriver.Conn, error) {
-			return redisDriver.Dial("tcp", "redis:6379")
+			return redisDriver.Dial("tcp", os.Getenv("REDIS_URI"))
 		},
 	}
 	serviceEvent = service.New(redis.New(redisPool))
