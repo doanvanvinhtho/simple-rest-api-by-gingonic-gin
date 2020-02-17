@@ -15,6 +15,8 @@ go run main.go
 ```
 
 ## Test APIs
+
+### Get
 ``` bash
 curl http://localhost:8080/events/id_go
 {"code":200,"data":{"id":"id_go","title":"Go","description":"https://golang.org/"}}
@@ -24,6 +26,30 @@ curl http://localhost:8080/events/id_gin
 
 curl http://localhost:8080/events/12345_54321
 {"code":404,"message":"Event 12345_54321 not found"}
+```
+
+### GetAll
+``` bash
+curl http://localhost:8080/events
+{"code":200,"data":[{"id":"id_go","title":"Go","description":"https://golang.org/"},{"id":"id_gin","title":"Gin","description":"https://github.com/gin-gonic/gin"}]}
+```
+
+### Add
+``` bash
+curl -H "Content-Type: application/json" -X POST -d '{"id":"a","title":"b","description":"c"}' http://localhost:8080/events
+{"code":200}
+```
+
+### Update
+``` bash
+curl -H "Content-Type: application/json" -X PATCH -d '{"id":"a","title":"b1","description":"c1"}' http://localhost:8080/events
+{"code":200}
+```
+
+### Delete
+``` bash
+curl -X DELETE http://localhost:8080/events/id_go
+{"code":200}
 ```
 
 ## Docker

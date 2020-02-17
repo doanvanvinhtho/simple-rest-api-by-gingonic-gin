@@ -38,7 +38,7 @@ func initMongoDBRepo() {
 		log.Fatal(err)
 	}
 
-	serviceEvent = service.New(mongodb.New(client))
+	serviceEvent = service.New(mongodb.New(client, client.Database("demo")))
 }
 
 func initMySQLRepo() {
@@ -91,6 +91,10 @@ func Setup() *gin.Engine {
 	r := gin.Default()
 
 	r.GET("/events/:id", GetOneEvent)
+	r.GET("/events", GetAllEvent)
+	r.POST("/events", AddEvent)
+	r.PATCH("/events", UpdateEvent)
+	r.DELETE("/events/:id", DeleteEvent)
 
 	return r
 }
