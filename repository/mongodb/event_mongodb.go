@@ -38,7 +38,7 @@ func (e *eventMongoDB) GetOneEvent(id string) (*model.Event, error) {
 }
 
 // GetAllEvent helps to get all events from repository
-func (e *eventMongoDB) GetAllEvent() ([]*model.Event, error) {
+func (e *eventMongoDB) GetAllEvent() ([]model.Event, error) {
 	return nil, nil
 }
 

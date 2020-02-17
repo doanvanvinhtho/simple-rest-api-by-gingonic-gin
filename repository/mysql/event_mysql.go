@@ -45,7 +45,7 @@ func (e *eventMySQL) GetOneEvent(id string) (*model.Event, error) {
 }
 
 // GetAllEvent helps to get all events from repository
-func (e *eventMySQL) GetAllEvent() ([]*model.Event, error) {
+func (e *eventMySQL) GetAllEvent() ([]model.Event, error) {
 	return nil, nil
 }
 
