@@ -30,7 +30,7 @@ type eventInMemory struct {
 	events []model.Event
 }
 
-// GetOneEvent helps to get an event from in-memory repository
+// GetOneEvent helps to get an event from repository
 func (e *eventInMemory) GetOneEvent(id string) (*model.Event, error) {
 	for _, singleEvent := range e.events {
 		if singleEvent.ID == id {
@@ -39,4 +39,33 @@ func (e *eventInMemory) GetOneEvent(id string) (*model.Event, error) {
 	}
 
 	return nil, errors.New("Event " + id + " not found")
+}
+
+// GetAllEvent helps to get all events from repository
+func (e *eventInMemory) GetAllEvent() ([]*model.Event, error) {
+	return nil, nil
+}
+
+// AddEvent helps to add new event into repository
+func (e *eventInMemory) AddEvent(ev *model.Event) (string, error) {
+	if ev == nil {
+		return "", errors.New("The event need to add is nil")
+	}
+	return "", nil
+}
+
+// UpdateEvent helps to update an event in repository
+func (e *eventInMemory) UpdateEvent(ev *model.Event) (string, error) {
+	if ev == nil {
+		return "", errors.New("The event need to update is nil")
+	}
+	return "", nil
+}
+
+// DeleteEvent helps to delete an event in repository
+func (e *eventInMemory) DeleteEvent(id string) error {
+	if len(id) <= 0 {
+		return errors.New("The event id is empty")
+	}
+	return nil
 }

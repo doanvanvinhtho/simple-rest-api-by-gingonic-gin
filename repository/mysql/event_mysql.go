@@ -21,7 +21,7 @@ type eventMySQL struct {
 	db *sql.DB
 }
 
-// GetOneEvent helps to get a event from MySQL repository
+// GetOneEvent helps to get a event from repository
 func (e *eventMySQL) GetOneEvent(id string) (*model.Event, error) {
 	selCmd, err := e.db.Query("SELECT * FROM event WHERE id=?", id)
 	if err != nil {
@@ -42,4 +42,33 @@ func (e *eventMySQL) GetOneEvent(id string) (*model.Event, error) {
 	}
 
 	return nil, errors.New("[MySQL] Event " + id + " not found")
+}
+
+// GetAllEvent helps to get all events from repository
+func (e *eventMySQL) GetAllEvent() ([]*model.Event, error) {
+	return nil, nil
+}
+
+// AddEvent helps to add new event into repository
+func (e *eventMySQL) AddEvent(ev *model.Event) (string, error) {
+	if ev == nil {
+		return "", errors.New("[MySQL] The event need to add is nil")
+	}
+	return "", nil
+}
+
+// UpdateEvent helps to update an event in repository
+func (e *eventMySQL) UpdateEvent(ev *model.Event) (string, error) {
+	if ev == nil {
+		return "", errors.New("[MySQL] The event need to update is nil")
+	}
+	return "", nil
+}
+
+// DeleteEvent helps to delete an event in repository
+func (e *eventMySQL) DeleteEvent(id string) error {
+	if len(id) <= 0 {
+		return errors.New("[MySQL] The event id is empty")
+	}
+	return nil
 }

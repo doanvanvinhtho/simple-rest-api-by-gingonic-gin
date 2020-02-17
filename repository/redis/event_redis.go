@@ -21,7 +21,7 @@ type eventRedis struct {
 	pool *redis.Pool
 }
 
-// GetOneEvent helps to get a event from redis repository
+// GetOneEvent helps to get an event from repository
 func (e *eventRedis) GetOneEvent(id string) (*model.Event, error) {
 	conn := e.pool.Get()
 	defer conn.Close()
@@ -44,4 +44,33 @@ func (e *eventRedis) GetOneEvent(id string) (*model.Event, error) {
 	}
 
 	return &resultEvent, nil
+}
+
+// GetAllEvent helps to get all events from repository
+func (e *eventRedis) GetAllEvent() ([]*model.Event, error) {
+	return nil, nil
+}
+
+// AddEvent helps to add new event into repository
+func (e *eventRedis) AddEvent(ev *model.Event) (string, error) {
+	if ev == nil {
+		return "", errors.New("[Redis] The event need to add is nil")
+	}
+	return "", nil
+}
+
+// UpdateEvent helps to update an event in repository
+func (e *eventRedis) UpdateEvent(ev *model.Event) (string, error) {
+	if ev == nil {
+		return "", errors.New("[Redis] The event need to update is nil")
+	}
+	return "", nil
+}
+
+// DeleteEvent helps to delete an event in repository
+func (e *eventRedis) DeleteEvent(id string) error {
+	if len(id) <= 0 {
+		return errors.New("[Redis] The event id is empty")
+	}
+	return nil
 }

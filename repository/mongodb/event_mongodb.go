@@ -2,6 +2,7 @@ package mongodb
 
 import (
 	"context"
+	"errors"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -22,7 +23,7 @@ type eventMongoDB struct {
 	mongoClient *mongo.Client
 }
 
-// GetOneEvent helps to get a event from MongoDB repository
+// GetOneEvent helps to get a event from repository
 func (e *eventMongoDB) GetOneEvent(id string) (*model.Event, error) {
 	var resultEvent model.Event
 
@@ -34,4 +35,33 @@ func (e *eventMongoDB) GetOneEvent(id string) (*model.Event, error) {
 	}
 
 	return &resultEvent, nil
+}
+
+// GetAllEvent helps to get all events from repository
+func (e *eventMongoDB) GetAllEvent() ([]*model.Event, error) {
+	return nil, nil
+}
+
+// AddEvent helps to add new event into repository
+func (e *eventMongoDB) AddEvent(ev *model.Event) (string, error) {
+	if ev == nil {
+		return "", errors.New("[MongoDB] The event need to add is nil")
+	}
+	return "", nil
+}
+
+// UpdateEvent helps to update an event in repository
+func (e *eventMongoDB) UpdateEvent(ev *model.Event) (string, error) {
+	if ev == nil {
+		return "", errors.New("[MongoDB] The event need to update is nil")
+	}
+	return "", nil
+}
+
+// DeleteEvent helps to delete an event in repository
+func (e *eventMongoDB) DeleteEvent(id string) error {
+	if len(id) <= 0 {
+		return errors.New("[MongoDB] The event id is empty")
+	}
+	return nil
 }
