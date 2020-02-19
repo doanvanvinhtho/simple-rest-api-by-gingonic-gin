@@ -16,7 +16,7 @@ go run main.go
 
 ## Test APIs
 
-### Get
+### Get event by ID
 ``` bash
 curl http://localhost:8080/events/id_go
 {"code":200,"data":{"id":"id_go","title":"Go","description":"https://golang.org/"}}
@@ -28,34 +28,34 @@ curl http://localhost:8080/events/id_not_exist
 {"code":404,"message":"Event id_not_exist not found"}
 ```
 
-### GetAll
+### Get all events
 ``` bash
 curl http://localhost:8080/events
 {"code":200,"data":[{"id":"id_go","title":"Go","description":"https://golang.org/"},
 {"id":"id_gin","title":"Gin","description":"https://github.com/gin-gonic/gin"}]}
 ```
 
-### Add
+### Add an event
 ``` bash
 curl -H "Content-Type: application/json" -X POST \
      -d '{"id":"a","title":"b","description":"c"}' http://localhost:8080/events
 {"code":200}
 ```
 
-### Update
+### Update an event
 ``` bash
 curl -H "Content-Type: application/json" -X PATCH \
      -d '{"id":"a","title":"b1","description":"c1"}' http://localhost:8080/events
 {"code":200}
 ```
 
-### Delete
+### Delete an event
 ``` bash
 curl -X DELETE http://localhost:8080/events/id_go
 {"code":200}
 ```
 
-### Stress-Test
+### Stress-Test APIs
 ``` bash
 for i in $(seq 5000); do curl http://localhost:8080/events; done
 ```
