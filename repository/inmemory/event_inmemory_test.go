@@ -45,7 +45,7 @@ func TestGetOneEventInMemory(t *testing.T) {
 
 	badCases := []testcase{
 		{
-			inID:            "12345_54321",
+			inID:            "id_not_exist",
 			wantTitle:       "Go_wrong",
 			wantDescription: "",
 		},
@@ -172,7 +172,7 @@ func TestUpdateEventInMemory(t *testing.T) {
 
 	badCases := []testcase{
 		{
-			inID:            "12345_54321",
+			inID:            "id_not_exist",
 			wantTitle:       "Go_wrong",
 			wantDescription: "",
 		},
@@ -221,7 +221,7 @@ func TestDeleteEventInMemory(t *testing.T) {
 
 	badCases := []testcase{
 		{
-			inID:            "12345_54321",
+			inID:            "id_not_exist",
 			wantTitle:       "Go_wrong",
 			wantDescription: "",
 		},

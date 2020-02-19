@@ -16,7 +16,7 @@ func TestGetOneEvent(t *testing.T) {
 	assert.NotNil(t, response)
 	assert.Equal(t, http.StatusOK, response.Code)
 
-	response = serviceEvent.GetOneEvent("12345_54321")
+	response = serviceEvent.GetOneEvent("id_not_exist")
 	assert.NotNil(t, response)
 	assert.Equal(t, http.StatusNotFound, response.Code)
 }

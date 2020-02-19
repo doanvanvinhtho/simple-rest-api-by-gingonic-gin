@@ -24,8 +24,8 @@ curl http://localhost:8080/events/id_go
 curl http://localhost:8080/events/id_gin
 {"code":200,"data":{"id":"id_gin","title":"Gin","description":"https://github.com/gin-gonic/gin"}}
 
-curl http://localhost:8080/events/12345_54321
-{"code":404,"message":"Event 12345_54321 not found"}
+curl http://localhost:8080/events/id_not_exist
+{"code":404,"message":"Event id_not_exist not found"}
 ```
 
 ### GetAll

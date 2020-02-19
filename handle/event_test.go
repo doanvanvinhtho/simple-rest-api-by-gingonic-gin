@@ -35,7 +35,7 @@ func TestGetOneEvent(t *testing.T) {
 			wantDescription: "https://golang.org/",
 		},
 		{
-			inID:            "12345_54321",
+			inID:            "id_not_exist",
 			inTitle:         "",
 			inDescription:   "",
 			wantCode:        404,
@@ -125,7 +125,9 @@ func TestAddEvent(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, c.wantCode, response.Code)
 
+		//------------------------------------------------------------------------------------------
 		// Get the event back to check
+
 		w = httptest.NewRecorder()
 
 		req, _ = http.NewRequest("GET", "/events/"+c.inID, nil)
@@ -161,6 +163,22 @@ func TestUpdateEvent(t *testing.T) {
 			wantTitle:       "title_new_1",
 			wantDescription: "description_new_1",
 		},
+		{
+			inID:            "id_gin",
+			inTitle:         "title_new_1",
+			inDescription:   "description_new_1",
+			wantCode:        200,
+			wantTitle:       "title_new_1",
+			wantDescription: "description_new_1",
+		},
+		{
+			inID:            "id_not_exist",
+			inTitle:         "title_new_1",
+			inDescription:   "description_new_1",
+			wantCode:        404,
+			wantTitle:       "title_new_1",
+			wantDescription: "description_new_1",
+		},
 	}
 
 	for _, c := range cases {
@@ -186,7 +204,9 @@ func TestUpdateEvent(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, c.wantCode, response.Code)
 
+		//------------------------------------------------------------------------------------------
 		// Get back the event
+
 		w = httptest.NewRecorder()
 
 		req, _ = http.NewRequest("GET", "/events/"+c.inID, nil)
@@ -218,6 +238,22 @@ func TestDeleteEvent(t *testing.T) {
 			inID:            "id_go",
 			inTitle:         "",
 			inDescription:   "",
+			wantCode:        200,
+			wantTitle:       "",
+			wantDescription: "",
+		},
+		{
+			inID:            "id_gin",
+			inTitle:         "",
+			inDescription:   "",
+			wantCode:        200,
+			wantTitle:       "",
+			wantDescription: "",
+		},
+		{
+			inID:            "id_not_exist",
+			inTitle:         "",
+			inDescription:   "",
 			wantCode:        404,
 			wantTitle:       "",
 			wantDescription: "",
@@ -232,7 +268,16 @@ func TestDeleteEvent(t *testing.T) {
 		// The http response code always 200
 		assert.Equal(t, 200, w.Code)
 
+		// Convert the JSON response to object
+		var response model.Response
+		err := json.Unmarshal([]byte(w.Body.String()), &response)
+
+		assert.Nil(t, err)
+		assert.Equal(t, c.wantCode, response.Code)
+
+		//------------------------------------------------------------------------------------------
 		// Get the event to make sure it doesn't exist
+
 		w = httptest.NewRecorder()
 		req, _ = http.NewRequest("GET", "/events/"+c.inID, nil)
 		router.ServeHTTP(w, req)
@@ -241,10 +286,9 @@ func TestDeleteEvent(t *testing.T) {
 		assert.Equal(t, 200, w.Code)
 
 		// Convert the JSON response to object
-		var response model.Response
-		err := json.Unmarshal([]byte(w.Body.String()), &response)
+		err = json.Unmarshal([]byte(w.Body.String()), &response)
 
 		assert.Nil(t, err)
-		assert.Equal(t, c.wantCode, response.Code)
+		assert.Equal(t, 404, response.Code)
 	}
 }
