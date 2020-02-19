@@ -31,18 +31,21 @@ curl http://localhost:8080/events/id_not_exist
 ### GetAll
 ``` bash
 curl http://localhost:8080/events
-{"code":200,"data":[{"id":"id_go","title":"Go","description":"https://golang.org/"},{"id":"id_gin","title":"Gin","description":"https://github.com/gin-gonic/gin"}]}
+{"code":200,"data":[{"id":"id_go","title":"Go","description":"https://golang.org/"},
+{"id":"id_gin","title":"Gin","description":"https://github.com/gin-gonic/gin"}]}
 ```
 
 ### Add
 ``` bash
-curl -H "Content-Type: application/json" -X POST -d '{"id":"a","title":"b","description":"c"}' http://localhost:8080/events
+curl -H "Content-Type: application/json" -X POST \
+     -d '{"id":"a","title":"b","description":"c"}' http://localhost:8080/events
 {"code":200}
 ```
 
 ### Update
 ``` bash
-curl -H "Content-Type: application/json" -X PATCH -d '{"id":"a","title":"b1","description":"c1"}' http://localhost:8080/events
+curl -H "Content-Type: application/json" -X PATCH \
+     -d '{"id":"a","title":"b1","description":"c1"}' http://localhost:8080/events
 {"code":200}
 ```
 
@@ -50,6 +53,11 @@ curl -H "Content-Type: application/json" -X PATCH -d '{"id":"a","title":"b1","de
 ``` bash
 curl -X DELETE http://localhost:8080/events/id_go
 {"code":200}
+```
+
+### Stress-Test
+``` bash
+for i in $(seq 5000); do curl http://localhost:8080/events; done
 ```
 
 ## Docker
