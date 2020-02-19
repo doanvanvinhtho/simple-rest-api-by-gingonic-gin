@@ -55,6 +55,8 @@ func (e *eventMongoDB) GetAllEvent() ([]model.Event, error) {
 	if err != nil {
 		return nil, err
 	}
+	// Close the cursor once finished
+	defer cur.Close(context.TODO())
 
 	// Finding multiple documents returns a cursor
 	// Iterating through the cursor allows us to decode documents one at a time
@@ -72,9 +74,6 @@ func (e *eventMongoDB) GetAllEvent() ([]model.Event, error) {
 	if err := cur.Err(); err != nil {
 		return nil, err
 	}
-
-	// Close the cursor once finished
-	cur.Close(context.TODO())
 
 	return resultEvent, nil
 }
